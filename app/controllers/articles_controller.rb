@@ -1,14 +1,13 @@
 class ArticlesController < ApplicationController
   http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
-  # def index
-  #   @articles = Article.all
-  # end
+
   def index
     if params[:state].present? && %w[active pending].include?(params[:state])
       @articles = Article.where(state: params[:state])
     else
       @articles = Article.all
     end
+    @article_count = Article.public_count(params[:state])
   end
 
   def show
