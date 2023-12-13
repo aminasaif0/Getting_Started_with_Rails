@@ -1,7 +1,14 @@
 class ArticlesController < ApplicationController
   http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
+  # def index
+  #   @articles = Article.all
+  # end
   def index
-    @articles = Article.all
+    if params[:state].present? && %w[active pending].include?(params[:state])
+      @articles = Article.where(state: params[:state])
+    else
+      @articles = Article.all
+    end
   end
 
   def show
@@ -45,7 +52,7 @@ class ArticlesController < ApplicationController
  
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :body, :status, :state)
     end
 
 end
