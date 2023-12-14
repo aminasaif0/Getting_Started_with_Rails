@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
     else
       @articles = Article.all
     end
-    @article_count = Article.public_count(params[:state])
+    @article_count = @articles.count
   end
 
   def show

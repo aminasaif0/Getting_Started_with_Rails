@@ -5,8 +5,7 @@ class Article < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true, length: { minimum: 10 }
-  validates :state, inclusion: { in: %w[active pending], message: "%{value} is not a valid status" }
-
+  
   def self.public_count(state = 'all')
     if state == 'all'
       all.count

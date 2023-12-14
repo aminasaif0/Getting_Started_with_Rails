@@ -10,29 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< Updated upstream
-ActiveRecord::Schema[7.1].define(version: 2023_12_13_103035) do
-=======
-<<<<<<< Updated upstream
-ActiveRecord::Schema[7.1].define(version: 2023_12_13_072128) do
-=======
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_044249) do
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+ActiveRecord::Schema[7.1].define(version: 2023_12_14_053049) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
-<<<<<<< Updated upstream
-    t.string "state"
-=======
-<<<<<<< Updated upstream
-=======
     t.string "state", default: "active"
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   end
 
   create_table "comments", force: :cascade do |t|
