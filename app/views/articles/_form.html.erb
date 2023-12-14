@@ -18,6 +18,13 @@
     <%= form.label :status %><br>
     <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || 'public' %>
   </div>
+  <div>
+    <%= form.label :state %><br>
+    <%= form.select :state, ['pending', 'active'], selected: article.state || 'pending' %>
+    <% article.errors.full_messages_for(:state).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
 
   <div>
     <%= form.submit %>
