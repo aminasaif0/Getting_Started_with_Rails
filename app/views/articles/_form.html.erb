@@ -18,6 +18,7 @@
     <%= form.label :status %><br>
     <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || 'public' %>
   </div>
+<<<<<<< Updated upstream
   <div>
     <%= form.label :state %><br>
     <%= form.select :state, ['pending', 'active'], selected: article.state || 'pending' %>
@@ -25,7 +26,12 @@
       <div><%= message %></div>
     <% end %>
   </div>
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 
+=======
+>>>>>>> Stashed changes
   <div>
     <%= form.submit %>
   </div>
