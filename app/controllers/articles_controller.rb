@@ -1,8 +1,4 @@
 class ArticlesController < ApplicationController
-  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
-  before_action :authorize_admin, only: [:edit, :update, :set_state, :update_state]
-
-
   def index
     if params[:state].present? && %w[active pending].include?(params[:state])
       @articles = Article.where(state: params[:state])
@@ -50,29 +46,9 @@ class ArticlesController < ApplicationController
 
     redirect_to root_path, status: :see_other
   end
-
-  def set_state
-    @article = Article.find(params[:id])
-  end
   
-  def update_state
-    @article = Article.find(params[:id])
-
-    if @article.update(article_params)
-      redirect_to @article, notice: 'Article state was successfully updated.'
-    else
-      render :set_state, status: :unprocessable_entity
-    end
-  end
-   
   private
     def article_params
       params.require(:article).permit(:title, :body, :status, :state)
-    end
-
-    def authorize_admin
-      return if current_user&.has_role?('Admin')
-      flash[:alert] = "Unauthorized access."
-      redirect_to root_path
     end
 end
