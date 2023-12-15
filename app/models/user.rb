@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  include RoleCheck
   has_many :roles_users
   has_many :roles, through: :roles_users
   
