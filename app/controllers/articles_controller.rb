@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   before_action :find_article, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.states.key?(params[:state]) ? Article.where(state: params[:state]) : Article.all
+    @articles = Article.all unless Article.states.key?(params[:state])
+    @articles ||= Article.send(params[:state])
     @article_count = @articles.count
   end
 
