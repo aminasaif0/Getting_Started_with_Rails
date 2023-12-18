@@ -1,16 +1,12 @@
 class ArticlesController < ApplicationController
+  before_action :find_article, only: [:show, :edit, :update, :destroy]
+
   def index
-    if params[:state].present? && %w[active pending].include?(params[:state])
-      @articles = Article.where(state: params[:state])
-    else
-      @articles = Article.all
-    end
+    @articles = Article.states.key?(params[:state]) ? Article.where(state: params[:state]) : Article.all
     @article_count = @articles.count
   end
 
-  def show
-    @article = Article.find(params[:id])
-  end
+  def show; end
 
   def new
     @article = Article.new
@@ -26,13 +22,9 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-    @article = Article.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @article = Article.find(params[:id])
-
     if @article.update(article_params)
       redirect_to @article
     else
@@ -41,14 +33,21 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
-
     redirect_to root_path, status: :see_other
   end
-  
+
   private
     def article_params
       params.require(:article).permit(:title, :body, :status, :state)
+    end
+
+    def find_article
+      @article = Article.find_by(id: params[:id])
+
+      unless @article
+        flash[:alert] = "Article not found!"
+        redirect_to root_path
+      end
     end
 end
