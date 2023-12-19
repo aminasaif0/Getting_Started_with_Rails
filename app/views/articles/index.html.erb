@@ -8,6 +8,15 @@ Our blog has <%= @article_count %> articles and counting!
       <li>
         <%= link_to article.title, article %>
         <p><strong>Status:</strong> <%= article.status %></p>
+
+        <ul>
+          <% article.comments.each do |comment| %>
+            <li>
+              <p><strong>Comment:</strong> <%= comment.body %></p>
+            </li>
+          <% end %>
+        </ul>
+
       </li>
     <% end %>
   <% end %>

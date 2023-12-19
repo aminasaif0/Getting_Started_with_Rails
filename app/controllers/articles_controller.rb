@@ -2,9 +2,10 @@ class ArticlesController < ApplicationController
   before_action :find_article, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.all unless Article.states.key?(params[:state])
-    @articles ||= Article.send(params[:state])
+    @articles = Article.all.includes(:comments) unless Article.states.key?(params[:state])
+    @articles ||= send(params[:state]).includes(:comments)
     @article_count = @articles.count
+
   end
 
   def show; end

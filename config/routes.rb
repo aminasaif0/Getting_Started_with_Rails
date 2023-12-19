@@ -9,4 +9,6 @@ Rails.application.routes.draw do
       patch 'set_state', to: 'articles#update_state'
     end
   end
+
+  get 'show_comments', to: 'articles#show_comments', as: 'show_comments'
 end
